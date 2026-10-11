@@ -475,6 +475,34 @@ def graficar_analisis(analisis):
     ARCHIVO_GRAFICO.write_text("\n".join(elementos), encoding="utf-8")
     return ARCHIVO_GRAFICO
 
+#mejora se agrega mejor menu de selección de lugares y se agrega la función para buscar rutas alternativas y compararlas
+
+def seleccionar_lugar(grafo, mensaje, excluido=None):
+    """Permite seleccionar un lugar usando números."""
+
+    lugares = [
+        lugar for lugar in grafo
+        if lugar != excluido
+    ]
+
+    while True:
+        print(f"\n===== {mensaje.upper()} =====")
+
+        for numero, lugar in enumerate(lugares, start=1):
+            print(f"{numero}. {lugar}")
+
+        opcion = input("\nSelecciona un numero: ").strip()
+
+        if opcion.isdigit():
+            indice = int(opcion) - 1
+
+            if 0 <= indice < len(lugares):
+                elegido = lugares[indice]
+                print(f"Seleccionado: {elegido}")
+                return elegido
+
+        print("Opcion invalida. Intenta nuevamente.")
+
 
 def main():
     if pd is None:
@@ -495,8 +523,23 @@ def main():
         print("-", lugar)
 
     # Solicitamos el origen y el destino del pedido.
-    origen = input("\nIngrese el origen: ")
-    destino = input("Ingrese el destino: ")
+    # Seleccion del origen mediante menu numerado.
+    origen = seleccionar_lugar(
+        GRAFO,
+        "Seleccionar origen"
+    )
+
+    # Seleccion del destino, excluyendo el origen.
+    destino = seleccionar_lugar(
+        GRAFO,
+        "Seleccionar destino",
+        excluido=origen
+    )
+
+    print("\n===== PEDIDO CONFIGURADO =====")
+    print(f"Origen: {origen}")
+    print(f"Destino: {destino}")
+
 
     # Validamos los lugares antes de iniciar la búsqueda.
     if not estacion_valida(GRAFO, origen):
