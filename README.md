@@ -14,9 +14,9 @@ Desarrollar un sistema basado en conocimiento que permita encontrar una ruta par
 
 * Python
 * Algoritmo A*
-* pandas
-* Matplotlib
-* scikit-learn (K-Means)
+* pandas para organizar tablas y estadísticas (con respaldo si no carga)
+* K-Means implementado en Python
+* Gráfica SVG
 * Pytest
 * Git
 * GitHub
@@ -79,17 +79,22 @@ el sistema cuenta esa consulta como un pedido y guarda o actualiza el recorrido
 en `datos_recorridos.csv`.
 
 El resumen compara los recorridos registrados por distancia, tiempo y cantidad
-de pedidos; además muestra promedios y las rutas más rápida y más lenta. K-Means
-agrupa los recorridos usando esas tres métricas normalizadas. Se requieren al
-menos dos recorridos distintos para formar grupos. El gráfico relaciona
-distancia y tiempo, distingue los grupos por color y representa la cantidad de
-pedidos con el tamaño de cada punto; se guarda como `analisis_recorridos.png`.
+de pedidos; además muestra promedios y las rutas más rápida y más lenta. K-Means agrupa los recorridos usando esas tres métricas normalizadas. Se
+requieren al menos dos recorridos distintos para formar grupos. La gráfica SVG
+relaciona distancia y tiempo, distingue los grupos por color y representa la
+cantidad de pedidos con el tamaño de cada punto; se guarda como
+`analisis_recorridos.svg`.
 
-Instala las dependencias del proyecto con:
+Instala pandas (opcional) y pytest con:
 
 ```bash
 python -m pip install -r requirements.txt
 ```
+
+Si Windows bloquea una dependencia binaria de pandas, el programa avisa y
+continúa usando las herramientas incluidas en Python para CSV, tablas y
+estadísticas. La búsqueda, el agrupamiento K-Means y la gráfica tampoco
+necesitan paquetes externos.
 
 ## Pruebas
 
@@ -99,7 +104,8 @@ Para ejecutar las pruebas:
 pytest
 ```
 
-El proyecto incluye pruebas para verificar lugares existentes, lugares inexistentes y búsqueda de rutas.
+El proyecto incluye pruebas para verificar lugares existentes, lugares
+inexistentes, búsqueda, registro de pedidos y análisis de recorridos.
 
 ## Autor
 

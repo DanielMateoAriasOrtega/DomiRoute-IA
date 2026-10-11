@@ -1,4 +1,4 @@
-# Base de conocimiento de DomiRoute IA
+"""Base de conocimiento con los lugares y conexiones de DomiRoute IA."""
 
 GRAFO = {
     "Restaurante": ["Calle 1"],
@@ -7,5 +7,5 @@ GRAFO = {
     "Calle 3": ["Calle 1", "Calle 5"],
     "Calle 4": ["Calle 2", "Cliente"],
     "Calle 5": ["Calle 3", "Cliente"],
-    "Cliente": ["Calle 4", "Calle 5"]
+    "Cliente": ["Calle 4", "Calle 5"],
 }

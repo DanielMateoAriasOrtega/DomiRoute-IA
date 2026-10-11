@@ -1,22 +1,16 @@
-# Reglas lógicas de DomiRoute IA
+"""Reglas para consultar los lugares y conexiones del grafo."""
 
 
 def estacion_valida(grafo, estacion):
-    """
-    Comprueba si el lugar existe en la base de conocimiento.
-    """
+    """Indica si la estación existe en la base de conocimiento."""
     return estacion in grafo
 
 
 def existe_conexion(grafo, origen, destino):
-    """
-    Comprueba si existe una conexión directa.
-    """
+    """Indica si hay una conexión directa entre dos estaciones."""
     return destino in grafo.get(origen, [])
 
 
 def obtener_vecinos(grafo, estacion):
-    """
-    Obtiene los lugares conectados directamente.
-    """
+    """Devuelve las estaciones conectadas directamente."""
     return grafo.get(estacion, [])
