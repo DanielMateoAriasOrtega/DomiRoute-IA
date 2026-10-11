@@ -11,6 +11,10 @@ __pycache__/
 .pytest_cache/
 .mypy_cache/
 
+# Archivos que se generan al ejecutar el análisis de rutas
+datos_recorridos.csv
+analisis_recorridos.png
+
 # Node dependencies and build output
 node_modules/
 dist/
