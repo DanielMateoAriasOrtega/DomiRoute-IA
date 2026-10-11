@@ -50,3 +50,29 @@ def buscar_ruta(grafo, inicio, destino):
         actual = anteriores[actual]
 
     return list(reversed(ruta))
+
+def buscar_rutas_alternativas(grafo, inicio, destino):
+    """Encuentra rutas posibles sin repetir lugares."""
+
+    if inicio not in grafo or destino not in grafo:
+        return []
+
+    if inicio == destino:
+        return []
+
+    rutas = []
+    pendientes = [(inicio, [inicio])]
+
+    while pendientes:
+        actual, recorrido = pendientes.pop()
+
+        if actual == destino:
+            rutas.append(recorrido)
+            continue
+
+        for vecino in grafo.get(actual, []):
+            if vecino not in recorrido:
+                nueva_ruta = recorrido + [vecino]
+                pendientes.append((vecino, nueva_ruta))
+
+    return rutas

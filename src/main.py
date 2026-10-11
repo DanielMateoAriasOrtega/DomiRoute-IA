@@ -12,7 +12,7 @@ except ImportError as error:
 else:
     ERROR_IMPORTACION_PANDAS = None
 
-from busqueda import buscar_ruta
+from busqueda import buscar_ruta, buscar_rutas_alternativas
 from conocimiento import GRAFO
 from reglas import estacion_valida
 
@@ -515,6 +515,58 @@ def main():
         print("\nNo se encontró una ruta.")
         return
 
+    # agregamos la función para buscar rutas alternativas y compararlas
+    
+    # Buscar y comparar diferentes recorridos.
+    rutas_alternativas = buscar_rutas_alternativas(
+        GRAFO, origen, destino
+    )
+
+    comparacion = []
+
+    for recorrido in rutas_alternativas:
+        minutos, _ = calcular_tiempo_ruta(
+            recorrido, TIEMPOS_POR_TRAMO
+        )
+
+        distancia = (
+            len(recorrido) - 1
+        ) * DISTANCIA_POR_TRAMO_METROS
+
+        comparacion.append({
+            "ruta": recorrido,
+            "tiempo": minutos,
+            "distancia": distancia
+        })
+
+    # Ordenar desde la ruta más rápida.
+    comparacion.sort(
+        key=lambda opcion: (
+            opcion["tiempo"],
+            opcion["distancia"]
+        )
+    )
+
+    print("\n===== COMPARACION DE RUTAS =====")
+
+    for numero, opcion in enumerate(comparacion, 1):
+        print(f"\nRuta {numero}:")
+        print(" -> ".join(opcion["ruta"]))
+        print(f"Distancia: {opcion['distancia']} metros")
+        print(f"Tiempo: {opcion['tiempo']} minutos")
+
+        if numero == 1:
+            print(">>> RUTA MAS RAPIDA <<<")
+
+    if len(comparacion) > 1:
+        ahorro = (
+            comparacion[-1]["tiempo"]
+            - comparacion[0]["tiempo"]
+        )
+        print(f"\nAhorro maximo estimado: {ahorro} minutos")
+
+    print("\n===== FIN DE COMPARACION =====")
+    #variable tiempo_total, detalle
     tiempo_total, detalle = calcular_tiempo_ruta(ruta, TIEMPOS_POR_TRAMO)
     datos = registrar_pedido(ruta, tiempo_total)
     tabla = crear_tabla_resumen(datos)
