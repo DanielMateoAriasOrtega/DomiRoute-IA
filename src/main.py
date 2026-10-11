@@ -65,8 +65,11 @@ def calcular_tiempo_ruta(ruta, tiempos_por_tramo):
     return tiempo_total, detalle
 
 
-def registrar_pedido(ruta, tiempo_total, archivo=ARCHIVO_DATOS):
+def registrar_pedido(ruta, tiempo_total, archivo=None):
     """Guarda la ruta en CSV o incrementa su cantidad de pedidos."""
+    if archivo is None:
+        archivo = ARCHIVO_DATOS
+
     recorrido = " -> ".join(ruta)
     distancia = (len(ruta) - 1) * DISTANCIA_POR_TRAMO_METROS
 
@@ -160,7 +163,7 @@ def graficar_analisis(analisis):
         ax.scatter(
             seleccion["distancia_metros"],
             seleccion["tiempo_minutos"],
-            s=80 + seleccion["cantidad_pedidos"] * 25,
+            s=80 + pd.to_numeric(seleccion["cantidad_pedidos"]) * 25,
             alpha=0.75,
             label=grupo,
         )
