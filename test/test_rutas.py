@@ -162,7 +162,7 @@ def test_aplicacion_completa_guarda_csv_y_grafica(tmp_path, monkeypatch):
     archivo_grafico = tmp_path / "analisis_recorridos.svg"
     monkeypatch.setattr(aplicacion, "ARCHIVO_DATOS", archivo_datos)
     monkeypatch.setattr(aplicacion, "ARCHIVO_GRAFICO", archivo_grafico)
-    respuestas = iter(["Restaurante", "Cliente"])
+    respuestas = iter(["1", "6"])
     monkeypatch.setattr("builtins.input", lambda _: next(respuestas))
 
     aplicacion.main()
